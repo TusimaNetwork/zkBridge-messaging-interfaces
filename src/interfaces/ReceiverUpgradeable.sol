@@ -9,7 +9,7 @@ abstract contract ReceiverUpgradeable is IReceiver, Initializable {
 
     address public tusimaMessaging;
 
-    function __BridgeHandler_init(address _tusimaMessaging) public onlyInitializing {
+    function __Receiver_init(address _tusimaMessaging) public onlyInitializing {
         tusimaMessaging = _tusimaMessaging;
     }
 
