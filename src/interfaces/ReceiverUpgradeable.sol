@@ -5,12 +5,12 @@ import {IReceiver} from "./IMessaging.sol";
 import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 abstract contract ReceiverUpgradeable is IReceiver, Initializable {
-    error NotFromBridgeRouter(address sender);
+    error WrongCaller(address sender);
 
-    address public bridgeRouter;
+    address public tusimaMessaging;
 
-    function __BridgeHandler_init(address _bridgeRouter) public onlyInitializing {
-        bridgeRouter = _bridgeRouter;
+    function __BridgeHandler_init(address _tusimaMessaging) public onlyInitializing {
+        tusimaMessaging = _tusimaMessaging;
     }
 
     function handleMsg(uint32 sourceChainId, address sourceAddr, bytes memory message)
@@ -18,14 +18,14 @@ abstract contract ReceiverUpgradeable is IReceiver, Initializable {
         override
         returns (bytes4)
     {
-        if (msg.sender != bridgeRouter) {
-            revert NotFromBridgeRouter(msg.sender);
+        if (msg.sender != tusimaMessaging) {
+            revert WrongCaller(msg.sender);
         }
-        handleBridgeImpl(sourceChainId, sourceAddr, message);
+        handleMsgImpl(sourceChainId, sourceAddr, message);
         return IReceiver.handleMsg.selector;
     }
 
-    function handleBridgeImpl(uint32 sourceChainId, address sourceAddr, bytes memory message)
+    function handleMsgImpl(uint32 sourceChainId, address sourceAddr, bytes memory message)
         internal
         virtual;
 }

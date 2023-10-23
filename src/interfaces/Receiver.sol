@@ -4,12 +4,12 @@ pragma solidity ^0.8.0;
 import {IReceiver} from "./IMessaging.sol";
 
 abstract contract Receiver is IReceiver {
-    error NotFromBridgeRouter(address sender);
+    error WrongCaller(address sender);
 
-    address public bridgeRouter;
+    address public tusimaMessaging;
 
-    constructor(address _bridgeRouter) {
-        bridgeRouter = _bridgeRouter;
+    constructor(address _tusimaMessaging) {
+        tusimaMessaging = _tusimaMessaging;
     }
 
     function handleMsg(uint32 sourceChainId, address sourceAddr, bytes memory message)
@@ -17,14 +17,14 @@ abstract contract Receiver is IReceiver {
         override
         returns (bytes4)
     {
-        if (msg.sender != bridgeRouter) {
-            revert NotFromBridgeRouter(msg.sender);
+        if (msg.sender != tusimaMessaging) {
+            revert WrongCaller(msg.sender);
         }
-        handleBridgeImpl(sourceChainId, sourceAddr, message);
+        handleMsgImpl(sourceChainId, sourceAddr, message);
         return IReceiver.handleMsg.selector;
     }
 
-    function handleBridgeImpl(uint32 sourceChainId, address sourceAddr, bytes memory message)
+    function handleMsgImpl(uint32 sourceChainId, address sourceAddr, bytes memory message)
         internal
         virtual;
 }
