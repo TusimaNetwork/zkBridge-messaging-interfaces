@@ -1,7 +1,8 @@
-# zkBridge Messaging - Interfaces
+# zkBridge Messaging - Interfaces 
 
 ![Tusima zkBridge](https://ucarecdn.com/f4e08f06-c238-47f8-b98a-97629c199377/bridgelogo.png)
 
+[![Tests](https://github.com/TusimaNetwork/zkBridge-messaging-interfaces/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/TusimaNetwork/zkBridge-messaging-interfaces/actions/workflows/test.yml)
 
 This repo is the interface repo of the zkBridge Messaging component and mainly contains three files: [IMessaging.sol](./src/interfaces/IMessaging.sol), [Receiver.sol](./src/interfaces/Receiver.sol) and [ReceiverUpgradeable.sol](./src/interfaces/ReceiverUpgradeable.sol). Developers can easily implement cross-chain communication by introducing interface files.
 
